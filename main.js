@@ -1,86 +1,57 @@
-// Students write their code between these lines. 
-//
-// Code below this line vvvvv vvvvv vvvvv vvvvv vvvvv
-//
-// Code above this line ^^^^^ ^^^^^ ^^^^^ ^^^^^ ^^^^^
-//
-// Stuents should carefully read the test cases for the correct output. 
-//
+class SimpleCalculator {
+    constructor() { }
 
-// Mock Data 
-balance = 5000;
-transactionHistory = ['Deposited 10000 into Savings Account', 'Withdrawn 5000 from Savings Account'];
-this.accountNumber = accountNumber;
-this.balance = balance;
-console.log(`A/c No.: ${accountNumber}`);
-console.log(`Opening Balance: $${balance}`);   
-
-function getBalance() {
-    // Write function description 
-    this.balance += amount;
-    console.log(`Amount $${amount} deposited into account ${this.accountNumber}.`);
-    // Code below this line vvvvv vvvvv vvvvv vvvvv vvvvv
+    // Polymorphic function to perform arithmetic calculations
+    calculate(operation, num1, num2) {
+        // Write function description 
+        if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+            return 'Invalid input: num1 and num2 must be numbers';
+        }
 
 
-
+        // Code below this line vvvvv vvvvv vvvvv vvvvv vvvvv
+           switch (operation) {
+            case 'add':
+                return num1 + num2;
+            case 'subtract':
+                return num1 - num2;
+            case 'multiply':
+                return num1 * num2;
+            case 'divide':
+                if (num2 === 0) {
+                    return 'Cannot divide by zero';
+                }
+                return num1 / num2;
+            case 'modulus':
+                return num1 % num2;
+            default:
+                return 'Invalid operation';
+                    // Code above this line ^^^^^ ^^^^^ ^^^^^ ^^^^^ ^^^^^
+        }
+    }
+}
     
-    // Code above this line ^^^^^ ^^^^^ ^^^^^ ^^^^^ ^^^^^
-}
+    
 
-function deposit(amount) {
-    // Write function description 
-
-    // Code below this line vvvvv vvvvv vvvvv vvvvv vvvvv
-    this.balance += amount;
-    console.log(`Deposited: $${amount}`);
-    // Code above this line ^^^^^ ^^^^^ ^^^^^ ^^^^^ ^^^^^
-}
-
-function withdraw(amount) {
-    // Write function description 
-
-    // Code below this line vvvvv vvvvv vvvvv vvvvv vvvvv
-    if (amount <= this.balance) {
-        this.balance -= amount;
-        console.log(`Amount $${amount} withdrawn from account ${this.accountNumber}.`);
-      } else {
-        console.log(`Insufficient balance in account ${this.accountNumber}.`);
-      }
-    // Code above this line ^^^^^ ^^^^^ ^^^^^ ^^^^^ ^^^^^
-}
-
-function getTransactionHistory() {
-    // Write function description 
-
-    // Code below this line vvvvv vvvvv vvvvv vvvvv vvvvv
-    console.log("Transaction History");
-    transactionHistory.forEach((transaction, index) => {
-        console.log(`${index + 1}) ${transaction}`);
-    });
-    // Code above this line ^^^^^ ^^^^^ ^^^^^ ^^^^^ ^^^^^
-}
 
 // Instructor's test cases
 // ===== ===== ===== ===== =====
 
-console.log(getBalance());
-// Expected Output: 5000
+const calculator = new SimpleCalculator();
 
-deposit(4000);
-console.log(getBalance());
-// Expected Output: 9000
-
-withdraw(3000);
-console.log(getBalance());
-// Expected Output: 6000
-
-console.log(getTransactionHistory());
-/* Expected Output:
-
-Transaction History
-1) Deposited 10000 into Savings Account
-2) Withdrawn 5000 from Savings Account
-3) Deposited 4000 into Savings Account
-4) Withdrawn 3000 from Savings Account
-
-*/
+console.log(calculator.calculate('add', 5, 3));       
+// Expected Output: 8
+console.log(calculator.calculate('subtract', 10, 4)); 
+// Expected Output: 6
+console.log(calculator.calculate('multiply', 6, 7));  
+// Expected Output: 42
+console.log(calculator.calculate('divide', 8, 2));    
+// Expected Output: 4
+console.log(calculator.calculate('divide', 9, 2));    
+// Expected Output: 4
+console.log(calculator.calculate('divide', 8, 0));    
+// Expected Output: Cannot divide by zero
+console.log(calculator.calculate('modulus', 8, 3));       
+// Expected Output: 2
+console.log(calculator.calculate('add', 5, 'three')); 
+// Expected Output: Invalid input: num1 and num2 must be numbers
