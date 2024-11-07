@@ -4,35 +4,12 @@ class SimpleCalculator {
     // Polymorphic function to perform arithmetic calculations
     calculate(operation, num1, num2) {
         // Write function description 
-        if (typeof num1 !== 'number' || typeof num2 !== 'number') {
-            return 'Invalid input: num1 and num2 must be numbers';
-        }
-
-
+    
         // Code below this line vvvvv vvvvv vvvvv vvvvv vvvvv
-           switch (operation) {
-            case 'add':
-                return num1 + num2;
-            case 'subtract':
-                return num1 - num2;
-            case 'multiply':
-                return num1 * num2;
-            case 'divide':
-                if (num2 === 0) {
-                    return 'Cannot divide by zero';
-                }
-                return num1 / num2;
-            case 'modulus':
-                return num1 % num2;
-            default:
-                return 'Invalid operation';
-                    // Code above this line ^^^^^ ^^^^^ ^^^^^ ^^^^^ ^^^^^
-        }
+    
+        // Code above this line ^^^^^ ^^^^^ ^^^^^ ^^^^^ ^^^^^
     }
 }
-    
-    
-
 
 // Instructor's test cases
 // ===== ===== ===== ===== =====
