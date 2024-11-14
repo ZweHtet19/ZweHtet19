@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart with Discounts</title>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('shopping.jfif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: brightness(0.9);
+}
+        .container {
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .total {
+            font-weight: bold;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Shopping Cart with Discounts</h2>
+
+    <label>Item Name</label>
+    <input type="text" id="itemName" placeholder="Item Name">
+
+    <label>Price</label>
+    <input type="number" id="itemPrice" placeholder="Price" min="0">
+
+    <label>Quantity</label>
+    <input type="number" id="itemQuantity" placeholder="Quantity" min="1" value="1">
+
+    <button onclick="addItem()">Add Item</button>
+
+    <label>Discount (%)</label>
+    <input type="number" id="discount" placeholder="Discount (%)" min="0">
+
+    <button onclick="applyDiscount()">Apply Discount</button>
+
+    <h3>Cart Items</h3>
+    <div id="cartItems"></div>
+
+    <div class="total" id="totalPrice">Total: $0.00</div>
+</div>
+
+<script>
+    let cart = [];
+
+    function addItem() {
+        const itemName = document.getElementById("itemName").value;
+        const itemPrice = parseFloat(document.getElementById("itemPrice").value);
+        const itemQuantity = parseInt(document.getElementById("itemQuantity").value);
+
+        if (itemName && itemPrice && itemQuantity) {
+            cart.push({
+                name: itemName,
+                price: itemPrice,
+                quantity: itemQuantity
+            });
+            renderCart();
+        }
+    }
+
+    function renderCart() {
+        const cartItems = document.getElementById("cartItems");
+        cartItems.innerHTML = "";
+
+        cart.forEach((item, index) => {
+            const itemElement = document.createElement("div");
+            itemElement.className = "cart-item";
+            itemElement.innerHTML = `
+                ${item.name} - $${item.price.toFixed(2)} x ${item.quantity} 
+                <button onclick="removeItem(${index})">Remove</button>
+            `;
+            cartItems.appendChild(itemElement);
+        });
+
+        updateTotal();
+    }
+
+    function removeItem(index) {
+        cart.splice(index, 1);
+        renderCart();
+    }
+
+    function updateTotal() {
+        const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        document.getElementById("totalPrice").innerText = `Total: $${total.toFixed(2)}`;
+    }
+
+    function applyDiscount() {
+        const discount = parseFloat(document.getElementById("discount").value);
+        if (discount && discount > 0) {
+            cart = cart.map(item => ({
+                ...item,
+                price: item.price * (1 - discount / 100)
+            }));
+            renderCart();
+        }
+    }
+</script>
+
+</body>
+</html>
